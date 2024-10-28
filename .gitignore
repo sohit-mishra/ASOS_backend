@@ -1,0 +1,11 @@
+# Node modules
+node_modules/
+
+# Lock file
+package-lock.json
+
+# Environment variables
+.env
+
+# Text file containing links
+alllink.txt

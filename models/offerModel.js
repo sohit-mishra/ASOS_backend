@@ -12,10 +12,10 @@ const offerSchema = new mongoose.Schema({
         type:Number,
         required:true,
     }
-    ,products:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Product',
-    }]
+    ,userId:{
+        type:String,
+        required:true,
+    }
     ,startDate:{
         type:Date,
         required:true,

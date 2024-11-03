@@ -1,9 +1,9 @@
 const Offer = require('../models/offerModel');
 
 const CreateOffer = async (req, res) => {
-    const { name, description, discount, products,startDate, endDate} = req.body;
+    const { name, description, discount, userId,startDate, endDate} = req.body;
     try {
-        const newOffer = await Offer.create({  name, description, discount, products,startDate, endDate });
+        const newOffer = await Offer.create({  name, description, discount, userId,startDate, endDate });
         res.status(201).json({ message: 'Offer created successfully', offer: newOffer });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -23,7 +23,7 @@ const getAllOffer = async (req, res) => {
 const getOfferById = async (req, res) => {
     const { CreateId } = req.params; 
     try {
-        const offer = await Offer.findById(CreateId);
+        const offer = await Offer.find({ userId : CreateId }); 
         if (!offer) {
             return res.status(404).json({ message: 'Offer not found' });
         }
@@ -32,6 +32,7 @@ const getOfferById = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 const UpdateOffer = async (req, res) => {
     const { id } = req.params;

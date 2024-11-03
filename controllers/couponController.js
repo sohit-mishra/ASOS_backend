@@ -29,20 +29,17 @@ const getAllCoupon = async (req, res) => {
     try {
         const createCouponUserId = await User.findById(userId);
         if (!createCouponUserId) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(200).json({ message: "User not found" });
         }
 
         const coupons = await Coupon.find({ userId});
-        
-        if (coupons.length === 0) {
-            return res.status(404).json({ message: "No active coupons found for this user." });
-        }
 
         res.status(200).json(coupons);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(404).json({ message: error.message });
     }
 };
+
 
 
 
@@ -90,7 +87,7 @@ const deleteCoupon = async (req, res) => {
     try {
         const coupon = await Coupon.findByIdAndDelete(couponId);
         if (!coupon) {
-            return res.status(404).json({ message: 'Coupon not found' });
+         res.status(404).json({ message: 'Coupon not found' });
         }
 
         res.status(200).json({ message: 'Coupon deleted successfully' });

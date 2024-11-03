@@ -31,10 +31,6 @@ const getAddress = async (req, res) => {
     const { userId } = req.params;
     try {
         const userAddresses = await Address.find({user: userId});
-        if (userAddresses.length === 0) {
-            return res.status(404).json({ message: 'No addresses found' });
-        }
-
         res.status(200).json({ addresses: userAddresses });
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -90,9 +90,6 @@ const getCartItems = async(req,res)=>{
     const { userId } = req.params; 
     try {
         const cartItems = await Cart.find({ userId });
-        if (!cartItems || cartItems.length === 0) {
-            return res.status(404).json({ message: 'No items found in the cart' });
-        }
         res.status(200).json(cartItems);
     } catch (error) {
         res.status(500).json({message: error.message});

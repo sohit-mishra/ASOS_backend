@@ -25,7 +25,7 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
     productList: {
-        type: [productSchema],
+        type: String,
         required: true
     },
     orderId: {

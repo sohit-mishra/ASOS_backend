@@ -5,5 +5,5 @@ const cloudinaryConfig = require('./cloudinary');
 module.exports = {
     dbConfig,
     jwtConfig,
-    cloudinaryConfig,
+    cloudinaryConfig
 }

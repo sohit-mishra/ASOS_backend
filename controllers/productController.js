@@ -43,13 +43,13 @@ const createProduct = async (req, res) => {
 
     try {
         console.log('start');
-        // const result = await cloudinary.uploader.upload(req.file.path, (error, result) => {
-        //     if (error) {
-        //         console.error('Cloudinary upload error:', error);
-        //         return res.status(500).json({ success: false, message: 'Error uploading to Cloudinary' });
-        //     }
-        //     console.log(result);
-        // });
+        cloudinary.uploader.upload(req.file.path, (error, result) => {
+            if (error) {
+                console.error('Cloudinary upload error:', error);
+                return res.status(500).json({ success: false, message: 'Error uploading to Cloudinary' });
+            }
+            console.log(result);
+        });
         
         console.log('end');
 

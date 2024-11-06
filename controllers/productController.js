@@ -1,7 +1,15 @@
 const Product = require('../models/productModel');
-const cloudinary = require('../config/cloudinary');
-const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
+const fs = require('fs');
 const path = require('path');
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 
 const allProduct = async (req, res) => {
     try {
@@ -42,26 +50,20 @@ const createProduct = async (req, res) => {
     }
 
     try {
-        console.log('start');
-        cloudinary.uploader.upload(req.file.path, (error, result) => {
-            if (error) {
-                console.error('Cloudinary upload error:', error);
-                return res.status(500).json({ success: false, message: 'Error uploading to Cloudinary' });
-            }
-            console.log(result);
-        });
-        
-        console.log('end');
-
+        const uploadResult = await cloudinary.uploader.upload(req.file.path);
 
         const newProduct = await Product.create({
             name,
             price: priceValue,
             description,
-            image:'Image not upload clodinary',
+            image:uploadResult.secure_url,
             cost: costValue,
             category,
             stock: stockValue,
+        });
+
+        fs.unlink(req.file.path, (err) => {
+            if (err) console.error('Error deleting file:', err);
         });
 
         res.status(201).json({

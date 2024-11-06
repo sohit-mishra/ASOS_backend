@@ -11,7 +11,7 @@ const upload = require('../middleware/uploadMiddleware');
 const router = express.Router();
 
 router.get('/', allProduct);
-router.post('/', upload.single('file'), createProduct);
+router.post('/',protect, admin, upload.single('file'), createProduct);
 router.get('/:id', getProductById);
 router.put('/:id', protect, admin, upload.single('file'), updateProduct);
 router.delete('/:id', protect, admin, deleteProduct);

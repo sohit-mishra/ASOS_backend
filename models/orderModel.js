@@ -11,12 +11,8 @@ const productSchema = new mongoose.Schema({
         required: true,
         min: 1
     },
-    price: {
-        type: Number,
-        required: true,
-        min: 0
-    }
-}, { _id: false }); 
+}, { _id: false });  
+
 
 const orderSchema = new mongoose.Schema({
     userId: {
@@ -25,7 +21,7 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
     productList: {
-        type: String,
+        type: [productSchema], 
         required: true
     },
     orderId: {
@@ -65,6 +61,7 @@ const orderSchema = new mongoose.Schema({
         default: Date.now
     }
 });
+
 
 orderSchema.pre('save', function(next) {
     this.updatedAt = Date.now();

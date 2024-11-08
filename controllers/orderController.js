@@ -14,9 +14,8 @@ const createOrder = async (req, res) => {
         const newOrder = await Order.create({ userId, productList, orderId, totalPrice: finalPrice, coupon: couponCode,discount});
 
         productList.forEach(async (product) => {
-            console.log(product);
-            await Cart.findByIdAndDelete(product.productId);
             
+            await Cart.findByIdAndDelete(product.productId);
         });
         
         res.status(201).json(newOrder);
